@@ -1,30 +1,38 @@
-// 🎧 YOUR REAL STREAM FROM CASTER
 let audio = new Audio("http://sapircast.caster.fm:18431/5SPef");
 
-let isPlaying = false;
-
-const playBtn = document.getElementById("playBtn");
+const btn = document.getElementById("playBtn");
 const track = document.getElementById("track");
+const status = document.getElementById("status");
+const volume = document.getElementById("volume");
 
-playBtn.addEventListener("click", () => {
-    if (!isPlaying) {
-        audio.play();
-        playBtn.innerText = "⏸ Pause";
-        track.innerText = "🔴 LIVE NOW";
+volume.value = 0.7;
+audio.volume = 0.7;
+
+let playing = false;
+
+btn.onclick = () => {
+    if (!playing) {
+        audio.play()
+            .then(() => {
+                track.innerText = "🔴 LIVE";
+                status.innerText = "LIVE NOW";
+            })
+            .catch(() => {
+                track.innerText = "OFFLINE";
+                status.innerText = "STREAM OFFLINE";
+            });
+
+        btn.innerText = "⏸";
     } else {
         audio.pause();
-        playBtn.innerText = "▶ Play Live";
-        track.innerText = "Paused";
+        track.innerText = "PAUSED";
+        status.innerText = "PAUSED";
+        btn.innerText = "▶";
     }
-    isPlaying = !isPlaying;
-});
 
-// VISUALIZER
-const bars = document.getElementById("bars");
+    playing = !playing;
+};
 
-for (let i = 0; i < 50; i++) {
-    let bar = document.createElement("div");
-    bar.classList.add("bar");
-    bar.style.animationDelay = (i * 0.03) + "s";
-    bars.appendChild(bar);
-}
+volume.oninput = () => {
+    audio.volume = volume.value;
+};

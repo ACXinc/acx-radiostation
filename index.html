@@ -3,68 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ACX RadioStation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<!-- 🌌 BACKGROUND -->
+<div class="bg"></div>
+<div class="bg2"></div>
+
+<!-- HEADER -->
 <header>
     <div class="logo">ACX RADIO</div>
+
     <nav>
         <a href="#">Home</a>
+        <a href="#about">Artist</a>
         <a href="#live">Live</a>
         <a href="#mixes">Mixes</a>
     </nav>
 </header>
 
-<!-- HERO / LIVE -->
-<section class="hero" id="live">
-    <h1>🎧 ACX RadioStation</h1>
+<!-- HERO -->
+<section class="hero">
+    <h1>FEEL THE ENERGY</h1>
     <p>Live Tech House • EDM • DJ Adem Chebbi</p>
-
-    <button id="playBtn">▶ Play Live</button>
-
-    <div class="now-playing">
-        <p>Status</p>
-        <h3 id="track">🔴 Ready to stream</h3>
-    </div>
 </section>
 
-<!-- VISUALIZER -->
-<section class="visualizer">
-    <div id="bars" class="bars"></div>
+<!-- ABOUT -->
+<section id="about" class="card">
+    <h2>DJ ADEM CHEBBI</h2>
+    <p>
+        High-energy DJ delivering Tech House & EDM sets.
+        Creator of ACX RadioStation — your daily source of powerful electronic music.
+    </p>
+</section>
+
+<!-- LIVE -->
+<section id="live" class="card">
+    <h2>🔴 LIVE RADIO</h2>
+    <div id="status">OFFLINE</div>
 </section>
 
 <!-- MIXES -->
-<section class="mixes" id="mixes">
-    <h2>🔥 DJ ADEM MIXES</h2>
-
-    <div class="mix-grid">
-
-        <div class="mix-card">
-            <iframe src="https://www.youtube.com/embed/WScbRe-Si2U" allowfullscreen></iframe>
-            <h3>Tech House Vol.1</h3>
-        </div>
-
-        <div class="mix-card">
-            <iframe src="https://www.youtube.com/embed/BdnUKWpKwfY" allowfullscreen></iframe>
-            <h3>Afro House Vol.1</h3>
-        </div>
-
-        <div class="mix-card">
-            <iframe src="https://www.youtube.com/embed/16KcRDPQYdw" allowfullscreen></iframe>
-            <h3>EDM Mix Vol.1</h3>
-        </div>
-
+<section id="mixes" class="card">
+    <h2>🎧 MIXES</h2>
+    <div class="grid">
+        <iframe src="https://www.youtube.com/embed/WScbRe-Si2U"></iframe>
+        <iframe src="https://www.youtube.com/embed/BdnUKWpKwfY"></iframe>
+        <iframe src="https://www.youtube.com/embed/16KcRDPQYdw"></iframe>
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-    <p>© 2026 ACX RadioStation — DJ Adem Chebbi</p>
-</footer>
+<!-- PLAYER -->
+<div class="player">
+    <div>
+        <span>ACX RADIO</span>
+        <p id="track">OFFLINE</p>
+    </div>
+
+    <button id="playBtn">▶</button>
+
+    <input type="range" id="volume" min="0" max="1" step="0.01">
+</div>
 
 <script src="script.js"></script>
 </body>
