@@ -1,5 +1,7 @@
-// ✅ USE PUBLIC STREAM (.mp3)
+// 🎧 STREAM
 let audio = new Audio("http://sapircast.caster.fm:18431/5SPef.mp3");
+audio.crossOrigin = "anonymous"; // IMPORTANT
+audio.preload = "none";
 
 const btn = document.getElementById("playBtn");
 const track = document.getElementById("track");
@@ -11,28 +13,32 @@ audio.volume = 0.7;
 
 let playing = false;
 
-// 🔴 HANDLE STREAM ERRORS (NO POPUP)
-audio.onerror = () => {
-    track.innerText = "❌ STREAM BLOCKED";
-    status.innerText = "PRIVATE / OFFLINE";
-};
+// 🔴 DEBUG ERRORS
+audio.addEventListener("error", (e) => {
+    console.log("STREAM ERROR:", audio.error);
+    track.innerText = "❌ STREAM ERROR";
+    status.innerText = "LINK OR SERVER BLOCKED";
+});
 
 // ▶ PLAY BUTTON
-btn.onclick = () => {
+btn.onclick = async () => {
     if (!playing) {
-        audio.play()
-            .then(() => {
-                track.innerText = "🔴 LIVE";
-                status.innerText = "LIVE NOW";
-            })
-            .catch(() => {
-                track.innerText = "❌ CANNOT PLAY";
-                status.innerText = "CHECK STREAM";
-            });
+        try {
+            await audio.play();
 
-        btn.innerText = "⏸";
+            track.innerText = "🔴 LIVE";
+            status.innerText = "STREAMING NOW";
+            btn.innerText = "⏸";
+
+        } catch (err) {
+            console.log("PLAY ERROR:", err);
+
+            track.innerText = "❌ CANNOT PLAY";
+            status.innerText = "STREAM BLOCKED / OFFLINE";
+        }
     } else {
         audio.pause();
+
         track.innerText = "PAUSED";
         status.innerText = "PAUSED";
         btn.innerText = "▶";
@@ -41,7 +47,7 @@ btn.onclick = () => {
     playing = !playing;
 };
 
-// 🔊 VOLUME
-volume.oninput = () => {
-    audio.volume = volume.value;
-};
+// 🔊 VOLUME CONTROL
+volume.addEventListener("input", () => {
+    audio.volume = parseFloat(volume.value);
+});
