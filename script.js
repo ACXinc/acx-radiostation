@@ -1,29 +1,30 @@
-// AUDIO STREAM (FREE DEMO STREAM)
-let audio = new Audio("https://stream.zeno.fm/f3wvbbqmdg8uv");
+// 🎧 YOUR REAL STREAM FROM CASTER
+let audio = new Audio("http://sapircast.caster.fm:18431/5SPef");
+
 let isPlaying = false;
 
 const playBtn = document.getElementById("playBtn");
-const trackText = document.getElementById("track");
+const track = document.getElementById("track");
 
 playBtn.addEventListener("click", () => {
     if (!isPlaying) {
         audio.play();
         playBtn.innerText = "⏸ Pause";
-        trackText.innerText = "🔴 Live Streaming...";
+        track.innerText = "🔴 LIVE NOW";
     } else {
         audio.pause();
         playBtn.innerText = "▶ Play Live";
-        trackText.innerText = "Paused";
+        track.innerText = "Paused";
     }
     isPlaying = !isPlaying;
 });
 
 // VISUALIZER
-const barsContainer = document.getElementById("bars");
+const bars = document.getElementById("bars");
 
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < 50; i++) {
     let bar = document.createElement("div");
     bar.classList.add("bar");
-    bar.style.animationDelay = (i * 0.05) + "s";
-    barsContainer.appendChild(bar);
+    bar.style.animationDelay = (i * 0.03) + "s";
+    bars.appendChild(bar);
 }

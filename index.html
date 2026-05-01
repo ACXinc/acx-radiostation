@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACX RadioStation</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACX RadioStation</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <!-- NAVBAR -->
@@ -13,22 +14,21 @@
     <div class="logo">ACX RADIO</div>
     <nav>
         <a href="#">Home</a>
-        <a href="#">Live</a>
-        <a href="#">Mixes</a>
-        <a href="#">Contact</a>
+        <a href="#live">Live</a>
+        <a href="#mixes">Mixes</a>
     </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero">
+<!-- HERO / LIVE -->
+<section class="hero" id="live">
     <h1>🎧 ACX RadioStation</h1>
     <p>Live Tech House • EDM • DJ Adem Chebbi</p>
 
     <button id="playBtn">▶ Play Live</button>
 
     <div class="now-playing">
-        <p>Now Playing</p>
-        <h3 id="track">Waiting for stream...</h3>
+        <p>Status</p>
+        <h3 id="track">🔴 Ready to stream</h3>
     </div>
 </section>
 
@@ -38,27 +38,26 @@
 </section>
 
 <!-- MIXES -->
-<section class="mixes">
-    <h2>🔥 Latest Mixes</h2>
+<section class="mixes" id="mixes">
+    <h2>🔥 DJ ADEM MIXES</h2>
 
     <div class="mix-grid">
+
         <div class="mix-card">
-            <img src="https://via.placeholder.com/300" alt="">
+            <iframe src="https://www.youtube.com/embed/WScbRe-Si2U" allowfullscreen></iframe>
             <h3>Tech House Vol.1</h3>
-            <button>Play</button>
         </div>
 
         <div class="mix-card">
-            <img src="https://via.placeholder.com/300" alt="">
-            <h3>Afro House Vibes</h3>
-            <button>Play</button>
+            <iframe src="https://www.youtube.com/embed/BdnUKWpKwfY" allowfullscreen></iframe>
+            <h3>Afro House Vol.1</h3>
         </div>
 
         <div class="mix-card">
-            <img src="https://via.placeholder.com/300" alt="">
-            <h3>EDM Festival Mix</h3>
-            <button>Play</button>
+            <iframe src="https://www.youtube.com/embed/16KcRDPQYdw" allowfullscreen></iframe>
+            <h3>EDM Mix Vol.1</h3>
         </div>
+
     </div>
 </section>
 
