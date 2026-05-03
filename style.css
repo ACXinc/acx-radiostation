@@ -1,150 +1,344 @@
-:root {
-    --bg: #0d0d14;
-    --card: #181824;
-    --primary: #6c5ce7;
-    --accent: #00b894;
-}
-
 body {
     margin: 0;
-    font-family: 'Poppins';
-    background: var(--bg);
+    font-family: 'Poppins', sans-serif;
+    background: #0a0a0f;
     color: white;
 }
 
-/* LAYOUT */
+/* ================= HOME ================= */
+.home {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    background: radial-gradient(circle, #111, #000);
+}
+
+.home h1 {
+    font-family: 'Orbitron';
+    font-size: 55px;
+    color: #6c5ce7;
+}
+
+/* ================= APP ================= */
 .app {
     display: flex;
     height: 100vh;
 }
 
-/* SIDEBAR */
+.hidden {
+    display: none;
+}
+
+/* ================= NAV ================= */
 .sidebar {
     width: 220px;
     background: #111;
     padding: 20px;
 }
 
-.nav-item {
-    padding: 12px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    border-radius: 8px;
-}
-
-.nav-item:hover {
-    background: var(--primary);
-}
-
-.active {
-    background: var(--primary);
-}
-
-.highlight {
-    background: var(--accent);
-    color: black;
-}
-
-/* MAIN */
-.main {
-    flex: 1;
-    overflow-y: auto;
-}
-
-/* HERO */
-.hero {
-    height: 250px;
-    background: url("your-image.jpg") center/cover;
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
-    position: relative;
-}
-
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-}
-
-.hero-text {
-    position: relative;
-}
-
-.hero h1 {
+.sidebar h2 {
     font-family: 'Orbitron';
+    color: #00b894;
 }
 
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-/* CARD */
-.card {
-    background: var(--card);
+.sidebar button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: none;
+    background: #1c1c24;
+    color: white;
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background: #6c5ce7;
+}
+
+/* ================= MIX GRID ================= */
+#mixList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* MIX CARD */
+.mix-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
-.card:hover {
-    transform: scale(1.03);
+.mix-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #6c5ce7;
 }
 
-.card img {
+.mix-card img {
     width: 100%;
-    height: 140px;
+    height: 130px;
     object-fit: cover;
 }
 
-.card-title {
+.mix-card h4 {
     padding: 10px;
 }
 
-/* PLAYER */
+/* ================= PLAYER ================= */
 .player {
-    position: fixed;
-    bottom: 0;
+    margin-top: 30px;
+}
+
+#mixTitle {
+    font-family: 'Orbitron';
+    color: #00b894;
+}
+
+.progress {
     width: 100%;
-    background: rgba(17,17,17,0.95);
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px;
+    height: 6px;
+    background: #222;
+    margin: 10px 0;
+    border-radius: 10px;
 }
 
-/* NOW PLAYING */
-.now-box {
-    font-size: 14px;
-    color: #ccc;
-    margin-bottom: 8px;
+#bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg,#6c5ce7,#00b894);
 }
 
-/* VISUALIZER */
-canvas {
-    width: 100%;
-    height: 60px;
-    background: transparent;
-    margin-bottom: 10px;
+/* =========================
+   🌌 GLOBAL BACKGROUND MOVE
+========================= */
+body {
+    animation: bgMove 12s ease-in-out infinite alternate;
 }
 
-/* BUTTON */
+@keyframes bgMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* =========================
+   🏠 HOME ANIMATION IMPROVED
+========================= */
+.home h1 {
+    animation: glow 2s infinite alternate, zoomIn 1.2s ease;
+}
+
+.home p {
+    animation: fadeUp 1.2s ease;
+}
+
+.home button {
+    animation: fadeUp 1.5s ease;
+    transition: 0.3s;
+}
+
+.home button:active {
+    transform: scale(0.92);
+}
+
+/* =========================
+   🎧 APP ENTRY ANIMATION
+========================= */
+.app {
+    animation: fadeInApp 0.8s ease;
+}
+
+@keyframes fadeInApp {
+    from {
+        opacity: 0;
+        transform: scale(1.02);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* =========================
+   🎯 GENRE TITLE ANIMATION
+========================= */
+#genreTitle {
+    animation: slideDown 0.6s ease;
+}
+
+/* =========================
+   📀 MIX CARDS ANIMATION
+========================= */
+.mix-card {
+    animation: cardIn 0.4s ease;
+    transform-origin: center;
+}
+
+.mix-card:nth-child(1) { animation-delay: 0.05s; }
+.mix-card:nth-child(2) { animation-delay: 0.1s; }
+.mix-card:nth-child(3) { animation-delay: 0.15s; }
+
+.mix-card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+/* =========================
+   📊 PROGRESS BAR PULSE
+========================= */
+.progress {
+    box-shadow: 0 0 10px rgba(108,92,231,0.2);
+}
+
+#bar {
+    animation: barGlow 2s infinite alternate;
+}
+
+@keyframes barGlow {
+    0% { box-shadow: 0 0 5px #6c5ce7; }
+    100% { box-shadow: 0 0 20px #00b894; }
+}
+
+/* =========================
+   🎛 BUTTON INTERACTION
+========================= */
 button {
-    background: var(--primary);
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
+    transition: all 0.2s ease;
 }
-canvas {
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(108,92,231,0.4);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* =========================
+   ✨ KEYFRAME LIBRARY
+========================= */
+@keyframes glow {
+    from { text-shadow: 0 0 10px #6c5ce7; }
+    to { text-shadow: 0 0 30px #6c5ce7; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =========================
+   🎛 GLOBAL BUTTON STYLE
+========================= */
+button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+
+    color: white;
+    cursor: pointer;
+
+    background: linear-gradient(135deg, #6c5ce7, #00b894);
+    background-size: 200% 200%;
+
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    box-shadow: 0 0 10px rgba(108,92,231,0.25);
+}
+
+/* =========================
+   ✨ HOVER EFFECT (GLASS GLOW)
+========================= */
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 25px rgba(108,92,231,0.5);
+    background-position: right center;
+}
+
+/* =========================
+   👇 CLICK FEEL (PRESS)
+========================= */
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(0,184,148,0.3);
+}
+
+/* =========================
+   🌊 LIGHT SWEEP EFFECT
+========================= */
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transform: skewX(-20deg);
+    transition: 0.5s;
+}
+
+button:hover::before {
+    left: 120%;
+}
+
+/* =========================
+   🎧 SIDEBAR BUTTON VARIANT
+========================= */
+.sidebar button {
+    background: #1c1c24;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: none;
+}
+
+.sidebar button:hover {
+    background: linear-gradient(135deg, #6c5ce7, #111);
+}
+
+/* =========================
+   🎛 PLAYER BUTTON (NEXT)
+========================= */
+.player button {
     width: 100%;
-    height: 60px;
-    display: block; /* 🔥 FIX for GitHub Pages rendering */
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* =========================
+   🏠 HOME BUTTON (ENTER RADIO)
+========================= */
+.home button {
+    font-size: 16px;
+    padding: 14px 28px;
+    border-radius: 14px;
 }

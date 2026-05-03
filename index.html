@@ -2,61 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ACX Radio | DJ ADEM</title>
+<title>ACX RADIO | DJ ADEM</title>
 
-<!-- ⭐ FAVICON (ADD THIS LINE) -->
-<link rel="icon" type="image/png" href="your-image.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="app">
+<!-- 🏠 HOME -->
+<div class="home" id="home">
 
-    <aside class="sidebar">
-        <h2>ACX RADIO</h2>
+    <h1>ACX RADIOSTATION</h1>
 
-        <nav>
-            <div onclick="loadGenre('afro', event)" class="nav-item active">Afro House</div>
-            <div onclick="loadGenre('tech', event)" class="nav-item">Tech House</div>
-            <div onclick="loadGenre('edm', event)" class="nav-item">EDM</div>
-            <div onclick="loadGenre('house', event)" class="nav-item">House</div>
-            <div onclick="loadGenre('monthly', event)" class="nav-item highlight">🔥 Monthly</div>
-        </nav>
-    </aside>
+    <p>New Era, New Culture<br>DJ ADEM RADIO EXPERIENCE</p>
 
-    <main class="main">
-
-        <section class="hero">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                <h1>DJ ADEM</h1>
-                <p>ACX RadioStation • Music Culture</p>
-            </div>
-        </section>
-
-        <section class="content">
-            <h2 id="title">Afro House</h2>
-            <div id="grid" class="grid"></div>
-        </section>
-
-    </main>
+    <button onclick="enterRadio()">ENTER RADIO ▶</button>
 
 </div>
 
-<!-- PLAYER -->
-<div class="player">
+<!-- 🎧 APP -->
+<div class="app hidden" id="app">
 
-    <div class="now-box">
-        <div id="nowPlaying">No track selected</div>
+    <!-- 📡 NAV -->
+    <div class="sidebar">
+
+        <h2>GENRES</h2>
+
+        <button onclick="openGenre('tech')">Tech House</button>
+        <button onclick="openGenre('edm')">EDM</button>
+
     </div>
 
-    <canvas id="visualizer"></canvas>
+    <!-- 🎛 MAIN -->
+    <div class="main">
 
-    <button onclick="togglePlay()" id="playBtn">▶</button>
+        <h1>ACX RADIOSTATION</h1>
+
+        <h2 id="genreTitle"></h2>
+
+        <!-- 📀 MIX LIST -->
+        <div id="mixList"></div>
+
+        <!-- 🎧 PLAYER -->
+        <div class="player">
+
+            <div id="mixTitle">Select a Mix</div>
+            <div id="trackInfo">Idle</div>
+
+            <div class="progress">
+                <div id="bar"></div>
+            </div>
+
+            <button onclick="nextTrack()">NEXT TRACK ▶</button>
+
+        </div>
+
+    </div>
+
 </div>
 
 <script src="app.js"></script>

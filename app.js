@@ -1,120 +1,101 @@
-const coverImage = "your-image.jpg";
+let audio = new Audio();
+let currentMix = [];
+let index = 0;
 
-const data = {
-    afro: [{title: "AFRO HOUSE LIVE PART II", src: "music/afro1.mp3"}],
-    edm: [{title: "EDM VIP MIX", src: "music/edm1.mp3"}],
-    tech: [{title: "WELCOME TO THE UNDERGROUND", src: "music/tech1.mp3"}],
-    house: [{title: "ACX INTRO MIX", src: "music/house1.mp3"}],
-    monthly: [{title: "EXPLORE THE CULTURE", src: "music/month1.mp3"}]
+/* 🎵 DATA */
+const mixes = {
+    tech: [
+        { title: "UNDERGROUND INTRO VOL 1", cover: "your-image.jpg" },
+        { title: "TECH ENERGY VOL 1", cover: "your-image.jpg" }
+    ],
+    edm: [
+        { title: "CULTURE INTRO VOL 1", cover: "your-image.jpg" },
+        { title: "EDM EXPLOSION VOL 1", cover: "your-image.jpg" }
+    ]
 };
 
-const grid = document.getElementById("grid");
-const title = document.getElementById("title");
-const nowPlaying = document.getElementById("nowPlaying");
-const playBtn = document.getElementById("playBtn");
+/* 🏠 ENTER RADIO */
+function enterRadio() {
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+}
 
-let audio = new Audio();
-audio.volume = 0.7;
+/* 🎧 OPEN GENRE */
+function openGenre(type) {
 
-/* 🎧 GENRE LOADER */
-function loadGenre(genre, event) {
+    document.getElementById("genreTitle").innerText =
+        type.toUpperCase() + " MIXES";
 
-    document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
-    if (event) event.target.classList.add("active");
+    let list = document.getElementById("mixList");
+    list.innerHTML = "";
 
-    grid.innerHTML = "";
-    title.innerText = genre.toUpperCase();
+    mixes[type].forEach((mix) => {
 
-    data[genre].forEach(track => {
+        let div = document.createElement("div");
+        div.className = "mix-card";
 
-        const card = document.createElement("div");
-        card.className = "card";
-
-        card.innerHTML = `
-            <img src="${coverImage}">
-            <div class="card-title">DJ ADEM - ${track.title}</div>
+        div.innerHTML = `
+            <img src="${mix.cover}">
+            <h4>${mix.title}</h4>
         `;
 
-        card.onclick = () => playTrack(track);
-        grid.appendChild(card);
+        div.onclick = () => startMix(mix);
+
+        list.appendChild(div);
     });
 }
 
-/* 🎵 PLAY */
-function playTrack(track) {
-    audio.src = track.src;
-    audio.play();
+/* ▶ START MIX */
+function startMix(mix) {
 
-    nowPlaying.innerText = "DJ ADEM - " + track.title;
-    playBtn.innerText = "⏸";
+    currentMix = Array.from({length:10}, (_,i)=>
+        `music/${mix.title.toLowerCase().includes("tech") ? "tech" : "edm"}/VOL1/${i+1}.mp3`
+    );
 
-    initAudioContext(); // 🔥 important fix
+    index = 0;
+
+    document.getElementById("mixTitle").innerText =
+        mix.title;
+
+    playTrack();
 }
 
-/* ▶️ PLAY / PAUSE */
-function togglePlay() {
-    if (!audio.src) return;
+/* ▶ PLAY TRACK (FIXED ENGINE) */
+function playTrack() {
 
-    if (audio.paused) {
-        audio.play();
-        playBtn.innerText = "⏸";
-    } else {
-        audio.pause();
-        playBtn.innerText = "▶";
+    audio.pause();
+    audio = new Audio();
+
+    audio.src = currentMix[index];
+    audio.load();
+
+    audio.play().catch(err => {
+        console.log("Audio blocked or missing file:", err);
+    });
+
+    audio.ontimeupdate = () => {
+
+        let p = (audio.currentTime / audio.duration) * 100;
+        document.getElementById("bar").style.width = p + "%";
+
+        if (audio.duration - audio.currentTime < 3) {
+            nextTrack();
+            audio.ontimeupdate = null;
+        }
+    };
+
+    document.getElementById("trackInfo").innerText =
+        "Track " + (index + 1) + " / 10";
+}
+
+/* ▶ NEXT TRACK */
+function nextTrack() {
+
+    index++;
+
+    if (index >= currentMix.length) {
+        index = 0;
     }
+
+    playTrack();
 }
-
-/* 🎧 VISUALIZER SETUP (FIXED) */
-const canvas = document.getElementById("visualizer");
-const ctx = canvas.getContext("2d");
-
-let audioCtx;
-let analyser;
-let source;
-let dataArray;
-let bufferLength;
-let initialized = false;
-
-function initAudioContext() {
-
-    if (initialized) return;
-
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    source = audioCtx.createMediaElementSource(audio);
-    analyser = audioCtx.createAnalyser();
-
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-
-    analyser.fftSize = 64;
-
-    bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
-
-    initialized = true;
-
-    draw();
-}
-
-/* 🎨 DRAW */
-function draw() {
-    requestAnimationFrame(draw);
-
-    if (!analyser) return;
-
-    analyser.getByteFrequencyData(dataArray);
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    let barWidth = canvas.width / bufferLength;
-
-    for (let i = 0; i < bufferLength; i++) {
-        let barHeight = dataArray[i];
-
-        ctx.fillStyle = "#00f0ff";
-        ctx.fillRect(i * barWidth, 60 - barHeight / 2, barWidth - 2, barHeight);
-    }
-}
-
-/* INIT */
-loadGenre("afro");
