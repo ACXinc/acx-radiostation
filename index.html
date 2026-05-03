@@ -3,74 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACX Radio | DJ ADEM</title>
 
-<title>ACX RadioStation</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- 🌌 BACKGROUND -->
-<div class="bg"></div>
-<div class="bg2"></div>
+<div class="app">
 
-<!-- HEADER -->
-<header>
-    <div class="logo">ACX RADIO</div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2>ACX RADIO</h2>
 
-    <nav>
-        <a href="#">Home</a>
-        <a href="#about">Artist</a>
-        <a href="#live">Live</a>
-        <a href="#mixes">Mixes</a>
-    </nav>
-</header>
+        <nav>
+            <div onclick="loadGenre('afro', event)" class="nav-item active">Afro House</div>
+            <div onclick="loadGenre('tech', event)" class="nav-item">Tech House</div>
+            <div onclick="loadGenre('edm', event)" class="nav-item">EDM</div>
+            <div onclick="loadGenre('house', event)" class="nav-item">House</div>
+            <div onclick="loadGenre('monthly', event)" class="nav-item highlight">🔥 Monthly</div>
+        </nav>
+    </aside>
 
-<!-- HERO -->
-<section class="hero">
-    <h1>FEEL THE ENERGY</h1>
-    <p>Live Tech House • EDM • DJ Adem Chebbi</p>
-</section>
+    <!-- MAIN -->
+    <main class="main">
 
-<!-- ABOUT -->
-<section id="about" class="card">
-    <h2>DJ ADEM CHEBBI</h2>
-    <p>
-        High-energy DJ delivering Tech House & EDM sets.
-        Creator of ACX RadioStation — your daily source of powerful electronic music.
-    </p>
-</section>
+        <section class="hero">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                <h1>DJ ADEM</h1>
+                <p>ACX RadioStation • Music Culture</p>
+            </div>
+        </section>
 
-<!-- LIVE -->
-<section id="live" class="card">
-    <h2>🔴 LIVE RADIO</h2>
-    <div id="status">OFFLINE</div>
-</section>
+        <section class="content">
+            <h2 id="title">Afro House</h2>
+            <div id="grid" class="grid"></div>
+        </section>
 
-<!-- MIXES -->
-<section id="mixes" class="card">
-    <h2>🎧 MIXES</h2>
-    <div class="grid">
-        <iframe src="https://www.youtube.com/embed/WScbRe-Si2U"></iframe>
-        <iframe src="https://www.youtube.com/embed/BdnUKWpKwfY"></iframe>
-        <iframe src="https://www.youtube.com/embed/16KcRDPQYdw"></iframe>
-    </div>
-</section>
+    </main>
 
-<!-- PLAYER -->
-<div class="player">
-    <div>
-        <span>ACX RADIO</span>
-        <p id="track">OFFLINE</p>
-    </div>
-
-    <button id="playBtn">▶</button>
-
-    <input type="range" id="volume" min="0" max="1" step="0.01">
 </div>
 
-<script src="script.js"></script>
+<!-- 🎧 PLAYER -->
+<div class="player">
+
+    <div class="now-box">
+        <div id="nowPlaying">No track selected</div>
+    </div>
+
+    <canvas id="visualizer"></canvas>
+
+    <button onclick="togglePlay()" id="playBtn">▶</button>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
