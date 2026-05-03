@@ -1,31 +1,22 @@
-const coverImage = "your-image.jpg"; // ✅ YOUR IMAGE USED HERE
+const coverImage = "your-image.jpg";
 
 const data = {
-    afro: [
-        {title: "AFRO HOUSE LIVE PART II", src: "music/afro1.mp3"}
-    ],
-    edm: [
-        {title: "EDM VIP MIX", src: "music/edm1.mp3"}
-    ],
-    tech: [
-        {title: "WELCOME TO THE UNDERGROUND", src: "music/tech1.mp3"}
-    ],
-    house: [
-        {title: "ACX INTRO MIX", src: "music/house1.mp3"}
-    ],
-    monthly: [
-        {title: "EXPLORE THE CULTURE", src: "music/month1.mp3"}
-    ]
+    afro: [{title: "AFRO HOUSE LIVE PART II", src: "music/afro1.mp3"}],
+    edm: [{title: "EDM VIP MIX", src: "music/edm1.mp3"}],
+    tech: [{title: "WELCOME TO THE UNDERGROUND", src: "music/tech1.mp3"}],
+    house: [{title: "ACX INTRO MIX", src: "music/house1.mp3"}],
+    monthly: [{title: "EXPLORE THE CULTURE", src: "music/month1.mp3"}]
 };
 
 const grid = document.getElementById("grid");
 const title = document.getElementById("title");
 const nowPlaying = document.getElementById("nowPlaying");
+const playBtn = document.getElementById("playBtn");
 
 let audio = new Audio();
 audio.volume = 0.7;
 
-/* 🎧 LOAD GENRE */
+/* 🎧 GENRE LOADER */
 function loadGenre(genre, event) {
 
     document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
@@ -45,18 +36,19 @@ function loadGenre(genre, event) {
         `;
 
         card.onclick = () => playTrack(track);
-
         grid.appendChild(card);
     });
 }
 
-/* 🎵 PLAY TRACK */
+/* 🎵 PLAY */
 function playTrack(track) {
     audio.src = track.src;
     audio.play();
 
     nowPlaying.innerText = "DJ ADEM - " + track.title;
-    document.getElementById("playBtn").innerText = "⏸";
+    playBtn.innerText = "⏸";
+
+    initAudioContext(); // 🔥 important fix
 }
 
 /* ▶️ PLAY / PAUSE */
@@ -65,31 +57,50 @@ function togglePlay() {
 
     if (audio.paused) {
         audio.play();
-        document.getElementById("playBtn").innerText = "⏸";
+        playBtn.innerText = "⏸";
     } else {
         audio.pause();
-        document.getElementById("playBtn").innerText = "▶";
+        playBtn.innerText = "▶";
     }
 }
 
-/* 🎧 VISUALIZER */
+/* 🎧 VISUALIZER SETUP (FIXED) */
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
 
-let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-let source = audioCtx.createMediaElementSource(audio);
-let analyser = audioCtx.createAnalyser();
+let audioCtx;
+let analyser;
+let source;
+let dataArray;
+let bufferLength;
+let initialized = false;
 
-source.connect(analyser);
-analyser.connect(audioCtx.destination);
+function initAudioContext() {
 
-analyser.fftSize = 64;
+    if (initialized) return;
 
-const bufferLength = analyser.frequencyBinCount;
-const dataArray = new Uint8Array(bufferLength);
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    source = audioCtx.createMediaElementSource(audio);
+    analyser = audioCtx.createAnalyser();
 
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    analyser.fftSize = 64;
+
+    bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    initialized = true;
+
+    draw();
+}
+
+/* 🎨 DRAW */
 function draw() {
     requestAnimationFrame(draw);
+
+    if (!analyser) return;
 
     analyser.getByteFrequencyData(dataArray);
 
@@ -104,8 +115,6 @@ function draw() {
         ctx.fillRect(i * barWidth, 60 - barHeight / 2, barWidth - 2, barHeight);
     }
 }
-
-draw();
 
 /* INIT */
 loadGenre("afro");
