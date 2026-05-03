@@ -1,0 +1,145 @@
+:root {
+    --bg: #0d0d14;
+    --card: #181824;
+    --primary: #6c5ce7;
+    --accent: #00b894;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins';
+    background: var(--bg);
+    color: white;
+}
+
+/* LAYOUT */
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    background: #111;
+    padding: 20px;
+}
+
+.nav-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.nav-item:hover {
+    background: var(--primary);
+}
+
+.active {
+    background: var(--primary);
+}
+
+.highlight {
+    background: var(--accent);
+    color: black;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* HERO */
+.hero {
+    height: 250px;
+    background: url("your-image.jpg") center/cover;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.hero-text {
+    position: relative;
+}
+
+.hero h1 {
+    font-family: 'Orbitron';
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.card-title {
+    padding: 10px;
+}
+
+/* PLAYER */
+.player {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(17,17,17,0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+}
+
+/* NOW PLAYING */
+.now-box {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+/* VISUALIZER */
+canvas {
+    width: 100%;
+    height: 60px;
+    background: transparent;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+button {
+    background: var(--primary);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+}
