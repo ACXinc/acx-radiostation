@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ACX RADIO | DJ ADEM</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- 🏠 HOME -->
+<div class="home" id="home">
+
+    <h1>ACX RADIOSTATION</h1>
+
+    <p>New Era, New Culture<br>DJ ADEM RADIO EXPERIENCE</p>
+
+    <button onclick="enterRadio()">ENTER RADIO ▶</button>
+
+</div>
+
+<!-- 🎧 APP -->
+<div class="app hidden" id="app">
+
+    <!-- 📡 NAV -->
+    <div class="sidebar">
+
+        <h2>GENRES</h2>
+
+        <button onclick="openGenre('tech')">Tech House</button>
+        <button onclick="openGenre('edm')">EDM</button>
+
+    </div>
+
+    <!-- 🎛 MAIN -->
+    <div class="main">
+
+        <h1>ACX RADIOSTATION</h1>
+
+        <h2 id="genreTitle"></h2>
+
+        <!-- 📀 MIX LIST -->
+        <div id="mixList"></div>
+
+        <!-- 🎧 PLAYER -->
+        <div class="player">
+
+            <div id="mixTitle">Select a Mix</div>
+            <div id="trackInfo">Idle</div>
+
+            <div class="progress">
+                <div id="bar"></div>
+            </div>
+
+            <button onclick="nextTrack()">NEXT TRACK ▶</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
